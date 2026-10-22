@@ -24,13 +24,17 @@ Pushing to `main` deploys via `.github/workflows/deploy-pages.yml`.
 ## Adding or changing sounds
 
 1. Put a loudness-normalized MP3 in `public/audio/` (clips here are normalized to -16 LUFS with a -1.5 dBTP ceiling).
-2. Add an entry to `src/sounds.ts`; its `id` is the file name without `.mp3`.
+2. Add an entry to a page in `src/sounds.ts`; its `id` is the file name without `.mp3`.
 
-The grid is 5x4 in landscape and 4x5 in portrait, so keep the list at 20 or adjust `.board` in `src/App.css`.
+Each page is a 5x4 grid in landscape and 4x5 in portrait, so keep pages at 20 clips or fewer.
+Add another array to `PAGES` for another page; the pager in the header appears automatically.
+
+Every clip should be Rocky himself, not Grace repeating or correcting him, so check the speaker before adding one.
+Cut clips from official clips or movie-scene uploads, not fan compilations, which often add their own background music.
 
 Icons are generated from `public/favicon.svg` with `npm run generate-pwa-assets`.
 
 ## Credits
 
-Audio clips are short excerpts from *Project Hail Mary* (Amazon MGM Studios), cut from fan uploads on myinstants.com and from official clips and trailers.
+Audio clips are short excerpts from *Project Hail Mary* (Amazon MGM Studios), cut from official clips, trailers and movie-scene uploads, plus two fan uploads on myinstants.com.
 All rights belong to their owners; this is a non-commercial fan project.
