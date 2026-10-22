@@ -65,6 +65,12 @@ function Pager({ page, onChange }: { page: number; onChange: (page: number) => v
   )
 }
 
+/** Grid size along the long and short screen axes; short pages get bigger buttons. */
+function boardStyle(count: number): CSSProperties {
+  const long = count > 12 ? 5 : 4
+  return { '--long': long, '--short': Math.ceil(count / long) } as CSSProperties
+}
+
 function Pad({ sound, playback }: { sound: Sound; playback: Playback | null }) {
   const playing = playback?.id === sound.id
   const onPointerDown = (event: PointerEvent<HTMLButtonElement>) => {
@@ -139,6 +145,7 @@ function App() {
             <section
               key={index}
               className="board"
+              style={boardStyle(sounds.length)}
               aria-label={`Page ${index + 1}`}
               // Off-screen pages must not be tappable or reachable by keyboard.
               inert={index !== page}

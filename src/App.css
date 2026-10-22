@@ -132,8 +132,9 @@ body {
 /* Pages */
 
 .pages {
-  /* Room for the playing glow and focus ring, which overflow: hidden would otherwise clip. */
-  --bleed: 14px;
+  /* Room for the playing glow and focus ring, which overflow: hidden would otherwise clip. Never
+     wider than the gutter, or the pages would stick out past the screen edge. */
+  --bleed: min(14px, var(--gutter));
 
   min-height: 0;
   margin: calc(var(--bleed) * -1);
@@ -150,8 +151,9 @@ body {
 }
 
 .board {
-  --cols: 5;
-  --rows: 4;
+  /* --long and --short (set per page) are the grid size along the screen's long and short axes. */
+  --cols: var(--long);
+  --rows: var(--short);
 
   flex: 0 0 100%;
   display: grid;
@@ -164,8 +166,8 @@ body {
 
 @media (orientation: portrait) {
   .board {
-    --cols: 4;
-    --rows: 5;
+    --cols: var(--short);
+    --rows: var(--long);
   }
 }
 

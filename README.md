@@ -1,6 +1,7 @@
 # Rocky Soundboard
 
 A touch-friendly soundboard of Rocky lines from *Project Hail Mary* (2026), hosted on GitHub Pages.
+The first two pages are translated lines; the third is Rocky's untranslated Eridian chords.
 
 Live at https://gisenberg.github.io/rocky-soundboard/
 
@@ -26,7 +27,8 @@ Pushing to `main` deploys via `.github/workflows/deploy-pages.yml`.
 1. Put a loudness-normalized MP3 in `public/audio/` (clips here are normalized to -16 LUFS with a -1.5 dBTP ceiling).
 2. Add an entry to a page in `src/sounds.ts`; its `id` is the file name without `.mp3`.
 
-Each page is a 5x4 grid in landscape and 4x5 in portrait, so keep pages at 20 clips or fewer.
+A page of up to 12 clips is a 4x3 grid in landscape and 3x4 in portrait.
+A fuller page is 5x4 in landscape and 4x5 in portrait, so keep pages at 20 clips or fewer.
 Add another array to `PAGES` for another page; the pager in the header appears automatically.
 
 Every clip should be Rocky himself, not Grace repeating or correcting him, so check the speaker before adding one.
@@ -37,4 +39,5 @@ Icons are generated from `public/favicon.svg` with `npm run generate-pwa-assets`
 ## Credits
 
 Audio clips are short excerpts from *Project Hail Mary* (Amazon MGM Studios), cut from official clips, trailers and movie-scene uploads, plus two fan uploads on myinstants.com.
+The isolated Eridian words come from a breakdown of Rocky's voice by the film's sound designer.
 All rights belong to their owners; this is a non-commercial fan project.

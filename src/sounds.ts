@@ -7,9 +7,10 @@ export interface Sound {
   tone: Tone
 }
 
-// Order matters: each page's grid fills row by row, one tone per row in landscape. Keep pages at
-// 20 or fewer clips to fit the 5x4 grid. Every clip is Rocky speaking (verified against reference
-// samples of Rocky's and Grace's voices) and is cut from an official clip or movie-scene upload.
+// Order matters: each page's grid fills row by row, one tone per row in landscape. Pages of 12 or
+// fewer clips get a 4x3 grid and fuller pages a 5x4 one, so keep pages at 20 or fewer. Every clip is
+// Rocky (verified against reference samples of Rocky's and Grace's voices) and is cut from an
+// official clip or movie-scene upload.
 const PAGE_1: readonly Sound[] = [
   { id: 'amaze', label: 'Amaze, amaze, amaze!', emoji: '✨', tone: 'amber' },
   { id: 'fist-my-bump', label: 'Fist my bump!', emoji: '👊', tone: 'amber' },
@@ -62,7 +63,26 @@ const PAGE_2: readonly Sound[] = [
   { id: 'made-peace', label: 'I thought you made peace, question?', emoji: '🤨', tone: 'violet' },
 ]
 
-export const PAGES: readonly (readonly Sound[])[] = [PAGE_1, PAGE_2]
+// Rocky's own Eridian chords, untranslated. The words come from the film's sound designer playing
+// them in isolation, Adrian from the Petrova Line scene, and the rest from the first contact scene.
+const PAGE_3: readonly Sound[] = [
+  { id: 'eridian-rocky', label: 'Rocky (full name)', emoji: '🪨', tone: 'amber' },
+  { id: 'eridian-grace', label: 'Grace', emoji: '🧑‍🚀', tone: 'amber' },
+  { id: 'eridian-adrian', label: 'Adrian', emoji: '💞', tone: 'amber' },
+  { id: 'eridian-question', label: 'Question', emoji: '❓', tone: 'amber' },
+
+  { id: 'eridian-amaze', label: 'Amaze, amaze, amaze', emoji: '🐋', tone: 'teal' },
+  { id: 'eridian-oxygen', label: 'Oxygen', emoji: '🫧', tone: 'teal' },
+  { id: 'eridian-save-stars', label: 'Grace, Rocky, save stars', emoji: '⭐', tone: 'teal' },
+  { id: 'eridian-goodbye', label: 'Goodbye (limb rub)', emoji: '👋', tone: 'teal' },
+
+  { id: 'first-contact', label: 'First contact', emoji: '🛸', tone: 'violet' },
+  { id: 'rocky-answers', label: 'Rocky answers', emoji: '💬', tone: 'violet' },
+  { id: 'rocky-hums', label: 'Rocky hums', emoji: '🎵', tone: 'violet' },
+  { id: 'rocky-insists', label: 'Rocky insists', emoji: '☝️', tone: 'violet' },
+]
+
+export const PAGES: readonly (readonly Sound[])[] = [PAGE_1, PAGE_2, PAGE_3]
 
 export const SOUNDS: readonly Sound[] = PAGES.flat()
 
