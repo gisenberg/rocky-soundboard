@@ -49,7 +49,7 @@ function OfflineBadge() {
 function Pager({ page, onChange }: { page: number; onChange: (page: number) => void }) {
   return (
     <nav className="pager" aria-label="Pages">
-      {PAGES.map((_, index) => (
+      {PAGES.map(({ icon }, index) => (
         <button
           key={index}
           type="button"
@@ -58,7 +58,7 @@ function Pager({ page, onChange }: { page: number; onChange: (page: number) => v
           aria-label={`Page ${index + 1}`}
           onClick={() => onChange(index)}
         >
-          {index + 1}
+          {icon ?? index + 1}
         </button>
       ))}
     </nav>
@@ -110,6 +110,13 @@ function Pad({ sound, playback }: { sound: Sound; playback: Playback | null }) {
 function App() {
   const playback = usePlayback()
   const [page, setPage] = usePage()
+  const { theme, subtitle = 'soundboard' } = PAGES[page]
+
+  useEffect(() => {
+    // On the root element so the page background, which lives on body, follows the theme too.
+    if (theme) document.documentElement.dataset.theme = theme
+    else delete document.documentElement.dataset.theme
+  }, [theme])
 
   useEffect(() => {
     preloadAll()
@@ -134,19 +141,23 @@ function App() {
       <header className="masthead">
         <img className="masthead__logo" src={ICON_URL} alt="" />
         <h1 className="masthead__title">
-          Rocky <span>soundboard</span>
+          Rocky{' '}
+          {/* One wrapping item per part, so the later parts drop out first on narrow screens. */}
+          {subtitle.split(' · ').map((part, index) => (
+            <span key={index}>{index > 0 ? ` · ${part}` : part}</span>
+          ))}
         </h1>
         {PAGES.length > 1 && <Pager page={page} onChange={setPage} />}
         <OfflineBadge />
       </header>
       <main className="pages" onContextMenu={(event) => event.preventDefault()}>
         <div className="pages__track" style={{ '--page': page } as CSSProperties}>
-          {PAGES.map((sounds, index) => (
+          {PAGES.map(({ sounds, subtitle }, index) => (
             <section
               key={index}
               className="board"
               style={boardStyle(sounds.length)}
-              aria-label={`Page ${index + 1}`}
+              aria-label={subtitle ? `Page ${index + 1}: ${subtitle}` : `Page ${index + 1}`}
               // Off-screen pages must not be tappable or reachable by keyboard.
               inert={index !== page}
             >

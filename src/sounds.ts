@@ -1,4 +1,4 @@
-export type Tone = 'amber' | 'teal' | 'rose' | 'violet'
+export type Tone = 'amber' | 'teal' | 'rose' | 'violet' | 'pumpkin' | 'candy' | 'slime'
 
 export interface Sound {
   id: string
@@ -7,10 +7,20 @@ export interface Sound {
   tone: Tone
 }
 
+export interface Page {
+  sounds: readonly Sound[]
+  /** Restyles the whole app while the page is showing. */
+  theme?: 'halloween'
+  /** Shown on the pager button in place of the page number. */
+  icon?: string
+  /** Replaces "soundboard" in the header while the page is showing. */
+  subtitle?: string
+}
+
 // Order matters: each page's grid fills row by row, one tone per row in landscape. Pages of 12 or
-// fewer clips get a 4x3 grid and fuller pages a 5x4 one, so keep pages at 20 or fewer. Every clip is
-// Rocky (verified against reference samples of Rocky's and Grace's voices) and is cut from an
-// official clip or movie-scene upload.
+// fewer clips get a 4x3 grid and fuller pages a 5x4 one, so keep pages at 20 or fewer. Every clip on
+// the first three pages is Rocky (verified against reference samples of Rocky's and Grace's voices)
+// and is cut from an official clip or movie-scene upload.
 const PAGE_1: readonly Sound[] = [
   { id: 'amaze', label: 'Amaze, amaze, amaze!', emoji: '✨', tone: 'amber' },
   { id: 'fist-my-bump', label: 'Fist my bump!', emoji: '👊', tone: 'amber' },
@@ -82,9 +92,42 @@ const PAGE_3: readonly Sound[] = [
   { id: 'rocky-insists', label: 'Rocky insists', emoji: '☝️', tone: 'violet' },
 ]
 
-export const PAGES: readonly (readonly Sound[])[] = [PAGE_1, PAGE_2, PAGE_3]
+// New Halloween lines, not from the film: a voice-cloning model speaks them in Rocky's voice, using
+// a reference made from the translated clips above.
+const PAGE_HALLOWEEN: readonly Sound[] = [
+  { id: 'halloween-trick-or-treat', label: 'Trick or treat, question?', emoji: '🎃', tone: 'pumpkin' },
+  { id: 'halloween-happy-halloween', label: 'Happy Halloween, Grace!', emoji: '🧡', tone: 'pumpkin' },
+  { id: 'halloween-give-candy', label: 'Give candy, or Rocky do trick. Statement.', emoji: '🪄', tone: 'pumpkin' },
+  { id: 'halloween-rocky-is-ghost', label: 'Rocky is ghost. Boo. Statement.', emoji: '👻', tone: 'pumpkin' },
+  { id: 'halloween-spooky', label: 'Spooky, spooky, spooky!', emoji: '🕸️', tone: 'pumpkin' },
 
-export const SOUNDS: readonly Sound[] = PAGES.flat()
+  { id: 'halloween-amaze-candy', label: 'Amaze, amaze, amaze! So much candy!', emoji: '🍬', tone: 'candy' },
+  { id: 'halloween-fist-my-bump-candy', label: 'Fist my bump! Much candy!', emoji: '👊', tone: 'candy' },
+  { id: 'halloween-candy-corn', label: 'Candy corn is garbage. Statement.', emoji: '🌽', tone: 'candy' },
+  { id: 'halloween-toothbrush', label: 'This house give toothbrush. Bad house.', emoji: '🪥', tone: 'candy' },
+  { id: 'halloween-eat-all-candy', label: 'Rocky eat all candy. Rocky sorry. Not sorry.', emoji: '🍫', tone: 'candy' },
+
+  { id: 'halloween-carve-face', label: 'Why humans carve face in food, question?', emoji: '🔪', tone: 'slime' },
+  { id: 'halloween-pumpkin-lamp', label: 'Pumpkin is food? Or is lamp? Question.', emoji: '🏮', tone: 'slime' },
+  { id: 'halloween-pumpkin-dirty', label: 'Dirty, dirty, dirty! Pumpkin inside very dirty!', emoji: '🧼', tone: 'slime' },
+  { id: 'halloween-every-door', label: 'Children ask for food at every door. Very strange tradition.', emoji: '🚪', tone: 'slime' },
+  { id: 'halloween-costume', label: 'Grace wear costume. Grace look like Rocky! Amaze!', emoji: '🎭', tone: 'slime' },
+
+  { id: 'halloween-no-eyes', label: 'Rocky not scared. Rocky has no eyes.', emoji: '😎', tone: 'violet' },
+  { id: 'halloween-bat', label: 'Rocky like bat. Bat see with sound, like Rocky.', emoji: '🦇', tone: 'violet' },
+  { id: 'halloween-skeleton', label: 'Skeleton on outside. Like Rocky. Good design.', emoji: '💀', tone: 'violet' },
+  { id: 'halloween-grace-scared', label: 'Grace scared, question? Rocky protect Grace.', emoji: '🛡️', tone: 'violet' },
+  { id: 'halloween-monster-under-bed', label: 'Monster under bed, question? Rocky check. No monster. Only sock.', emoji: '🧦', tone: 'violet' },
+]
+
+export const PAGES: readonly Page[] = [
+  { sounds: PAGE_1 },
+  { sounds: PAGE_2 },
+  { sounds: PAGE_3 },
+  { sounds: PAGE_HALLOWEEN, theme: 'halloween', icon: '🎃', subtitle: 'Halloween · AI voice' },
+]
+
+export const SOUNDS: readonly Sound[] = PAGES.flatMap((page) => page.sounds)
 
 export function soundUrl(id: string): string {
   return `${import.meta.env.BASE_URL}audio/${id}.mp3`

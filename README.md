@@ -2,6 +2,7 @@
 
 A touch-friendly soundboard of Rocky lines from *Project Hail Mary* (2026), hosted on GitHub Pages.
 The first two pages are translated lines; the third is Rocky's untranslated Eridian chords.
+The fourth, Halloween page is new lines that are not in the film, spoken by a voice-cloning model in Rocky's voice.
 
 Live at https://gisenberg.github.io/rocky-soundboard/
 
@@ -33,6 +34,8 @@ Add another array to `PAGES` for another page; the pager in the header appears a
 
 Every clip should be Rocky himself, not Grace repeating or correcting him, so check the speaker before adding one.
 Cut clips from official clips or movie-scene uploads, not fan compilations, which often add their own background music.
+The Halloween page is the exception: its clips are generated, and its ids start with `halloween-`.
+A page can set `theme`, `icon` and `subtitle` in `PAGES` to restyle the app, label its pager button and retitle the header while it is showing.
 
 Icons are generated from `public/favicon.svg` with `npm run generate-pwa-assets`.
 
@@ -40,4 +43,5 @@ Icons are generated from `public/favicon.svg` with `npm run generate-pwa-assets`
 
 Audio clips are short excerpts from *Project Hail Mary* (Amazon MGM Studios), cut from official clips, trailers and movie-scene uploads, plus two fan uploads on myinstants.com.
 The isolated Eridian words come from a breakdown of Rocky's voice by the film's sound designer.
+The Halloween lines are AI-generated with Boson AI's Higgs TTS 3 (Higgs Audio), cloned from the translated clips on the first two pages; Rocky never says them in the film.
 All rights belong to their owners; this is a non-commercial fan project.
